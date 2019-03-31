@@ -1,20 +1,19 @@
-A [Giter8][g8] template for showcasing branching of an input Kafka topic into multiple output topics based on certain
-conditions.
+A [Giter8][g8] template for showcasing transformation on a Kafka topic with the help of Alpakka and Akka Streams.
 
-Kafka KStream Branching
+Kafka Transformation with Akka Streams
 ---
 
 ### Steps to install Zookeeper and Apache Kafka:
 
 Step 1: Download Kafka
 
-Download Kafka from [here](https://www.apache.org/dyn/closer.cgi?path=/kafka/0.10.1.1/kafka_2.11-0.10.1.1.tgz)
+Download Kafka from [here](https://www.apache.org/dyn/closer.cgi?path=/kafka/2.2.0/kafka-2.2.0-src.tgz)
 
 Step 2: Extract downloaded file
 
 ```bash
-tar -xzvf kafka_2.11-0.10.1.1.tgz
-cd kafka_2.11-0.10.1.1
+tar -xzvf kafka-2.2.0.tgz
+cd kafka-2.2.0
 ```
 ### Steps to start Zookeeper and Kafka server :
 
@@ -35,43 +34,39 @@ bin/kafka-server-start.sh config/server.properties
 ### Clone Project
 
 ```bash
-git clone git@github.com:knoldus/activator-stateful-kstream-kafka.git
-cd activator-kstream-kafka
-bin/activator clean compile
+git clone git@github.com:knoldus/kafka-with-akka-streams.g8.git
+cd kafka-with-akka-streams.g8
+sbt clean compile
 ```
 ---
-### Producing tweets from your twitter account into Kafka topic
 
-Step 1: Add your twitter authentication tokens in application.conf.
-
-Step 2:
 Execute the following command,
 
 ```bash
-bin/activator "run-main com.knoldus.demo.TweetProducer"
+sbt "runMain com.knoldus.demo.KafkaProducer"
 ```
-This starts fetching tweets and push each of it into a Kafka topic queue.
+This starts producing random messages in the range 1 to 100 and push each of it into a Kafka topic queue.
 
 ---
-### Processing the incoming tweets
+### Transforming the incoming messages
 
 Step 1:
 Execute the following command,
 
 ```bash
-bin/activator "run-main demo.KStreamDemo"
+sbt "runMain com.knoldus.demo.KafkaTransformMessage"
 ```
 
-This begins stream processing on the input kafka topic and based on tha tags, it splits the incoming messages into
-different output topics.
+This begins akka stream processing on the input kafka topic and transforms the messages by appending 'knoldus' to them
+and produces to a new output topic.
 
 
 ---
-For any issue please raise a ticket @ [Github Issue](https://github.com/knoldus/kafka-stateless-kstream/issues)
+For any issue please raise a ticket @ [Github Issue](https://github.com/knoldus/kafka-with-akka-streams.g8/issues)
 
 Template license
 ----------------
-Written in 2017 by Himani Arora
+Written in 2019 by Himani Arora
 
 To the extent possible under law, the author(s) have dedicated all copyright and related
 and neighboring rights to this template to the public domain worldwide.
